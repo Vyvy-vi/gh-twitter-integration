@@ -1,14 +1,28 @@
 import os
-import requests  # noqa We are just importing this to prove the dependency installed correctly
+import tweepy
+import logging
 
+logger = logging.getLogger()
 
 def main():
-    my_input = os.environ["INPUT_MYINPUT"]
+    CONSUMER_API_KEY = os.environ["CONSUMER_API_KEY"]
+    CONSUMER_API_SECRET = os.environ["CONSUMER_API_SECRET"]
+    ACCESS_TOKEN = os.environ["ACCESS_TOKEN"]
+    ACCESS_TOKEN_SECRET = os.environ["ACCESS_TOKEN_SECRET"]
 
-    my_output = f"Hello {my_input}"
+    try:
+        auth = tweepy.OAuthHandler(CONSUMER_API_KEY, CONSUMER_API_SECRET)
+        auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-    print(f"::set-output name=myOutput::{my_output}")
+        api = tweepy.API(auth)
+        api.verify_credentials()
+        logger.info('Twitter Authenticated')
+    except Exception as e:
+        logger.error('Error in credentials', exc_info=True)
+        raise err
 
+
+    api.update_status()
 
 if __name__ == "__main__":
     main()

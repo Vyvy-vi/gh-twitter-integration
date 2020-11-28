@@ -4,20 +4,24 @@ author: "Vyvy-vi"
 inputs:
   CONSUMER_API_KEY:
     description: "Your twitter API consumer key"
+    required: True
     default: None
   CONSUMER_API_SECRET:
     description: "Your twitter API consumer secret"
+    required: True
     deault: None
   ACCESS_TOKEN:
     description: "Your twitter API access token"
+    required: True
     default: None
   ACCESS_TOKEN_SECRET:
     description: "Your twitter API access token secret"
+    required: True
     default: None
-
-outputs:
-  myOutput:
-    description: "Output from the action"
+  LABEL_FLAG:
+    description: ""The labels that you want the action to detect and notify"
+    required: False
+    default: 
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -26,3 +30,7 @@ runs:
     - ${{ inputs.CONSUMER_API_SECRET }}
     - ${{ inputs.ACCESS_TOKEN }}
     - ${{ inputs.ACCESS_TOKEN_SECRET }}
+    - ${{ inputs.LABEL_FLAG }}
+branding:
+  icon: 'twitter'
+  color: 'gray-dark'
