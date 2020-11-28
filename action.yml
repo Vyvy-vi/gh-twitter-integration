@@ -1,13 +1,28 @@
-name: "Python Container Action Template"
-description: "Get started with Python Container actions"
-author: "Jacob Tomlinson"
+name: "Gh-twitter action"
+description: "Uploads selective repo-updates, to twitter"
+author: "Vyvy-vi"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
+  CONSUMER_API_KEY:
+    description: "Your twitter API consumer key"
+    default: None
+  CONSUMER_API_SECRET:
+    description: "Your twitter API consumer secret"
+    deault: None
+  ACCESS_TOKEN:
+    description: "Your twitter API access token"
+    default: None
+  ACCESS_TOKEN_SECRET:
+    description: "Your twitter API access token secret"
+    default: None
+
 outputs:
   myOutput:
     description: "Output from the action"
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.CONSUMER_API_KEY }}
+    - ${{ inputs.CONSUMER_API_SECRET }}
+    - ${{ inputs.ACCESS_TOKEN }}
+    - ${{ inputs.ACCESS_TOKEN_SECRET }}
